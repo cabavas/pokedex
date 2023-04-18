@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/app/modules/pokemon_card/pokemon_card.dart';
 
 import '../../repositories/pokemon_model_repository.dart';
 
@@ -13,6 +14,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
     return Scaffold(
         appBar: AppBar(
           title: const Text('Pokedex'),
@@ -26,15 +31,19 @@ class HomePage extends StatelessWidget {
             const SizedBox(width: 50),
           ],
         ),
-        body: GridView(
-          gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        body: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: (itemWidth / itemHeight),
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          padding: const EdgeInsets.all(50),
           children: const [
-            Text('pokemon 1'),
-            Text('pokemon 2'),
-            Text('pokemon 3'),
-            Text('pokemon 4'),
-            Text('pokemon 5'),
+            PokemonCard(),
+            PokemonCard(),
+            PokemonCard(),
+            PokemonCard(),
+            PokemonCard(),
+            PokemonCard(),
           ],
         ));
   }
